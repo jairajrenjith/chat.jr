@@ -61,7 +61,7 @@ function ChatRoom({ room, user, goBack }) {
 }
 
 const styles = {
-  container: { height: "100%", display: "flex", flexDirection: "column", maxWidth: "900px", margin: "0 auto" },
+  container: { height: "100vh", display: "flex", flexDirection: "column", maxWidth: "900px", margin: "0 auto" },
   header: { padding: "20px", display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.05)", backdropFilter: "blur(10px)" },
   backBtn: { background: "none", border: "none", color: "#94a3b8", fontSize: "24px", marginRight: "20px", cursor: "pointer" },
   roomInfo: { display: "flex", alignItems: "center", gap: "10px" },
