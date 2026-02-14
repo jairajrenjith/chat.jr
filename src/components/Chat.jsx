@@ -67,7 +67,9 @@ function Chat({ user }) {
               style={{
                 ...styles.joinBtn,
                 width: isMobile ? "100%" : "auto",
-                marginTop: isMobile ? "10px" : "0"
+                marginTop: isMobile ? "10px" : "0",
+                height: isMobile ? "58px" : undefined,
+                fontSize: isMobile ? "17px" : undefined
               }}
             >
               Enter
