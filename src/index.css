@@ -1,24 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
-
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+:root {
+  --bg: #0f141a;
+  --panel: #151b22;
+  --text: #e6edf3;
+  --muted: #9aa6b2;
+  --accent: #3b82f6;
+  --bubble-other: #1c232b;
 }
 
-button:active {
-  transform: translateY(0);
+.light {
+  --bg: #f4f6f8;
+  --panel: #ffffff;
+  --text: #0f172a;
+  --muted: #5b6472;
+  --accent: #2563eb;
+  --bubble-other: #e9eef3;
 }
 
 body {
   margin: 0;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  background-color: #05070a;
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(220,100%,10%,1) 0, transparent 50%), 
-    radial-gradient(at 100% 100%, hsla(210,100%,10%,1) 0, transparent 50%);
-  color: #f1f5f9;
-  min-height: 100vh;
-  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 * {
@@ -27,25 +30,21 @@ body {
 
 button {
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: inherit;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
 }
 
-button:active {
-  transform: scale(0.96);
+button:hover {
+  opacity: 0.85;
 }
 
 input {
-  outline: none;
   font-family: inherit;
-  transition: border-color 0.2s;
+  outline: none;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 10px;
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
 }
