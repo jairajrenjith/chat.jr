@@ -8,6 +8,8 @@ function ChatRoom({ room, user, goBack }) {
   const [newMsg, setNewMsg] = useState("");
   const bottomRef = useRef();
 
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+
   useEffect(() => {
     const q = query(collection(db, "rooms", room, "messages"), orderBy("createdAt"));
     const unsub = onSnapshot(q, (snap) => setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
@@ -21,13 +23,16 @@ function ChatRoom({ room, user, goBack }) {
   const sendMessage = async () => {
     if (!newMsg.trim()) return;
     await addDoc(collection(db, "rooms", room, "messages"), {
-      text: newMsg, name: user.displayName, uid: user.uid, createdAt: serverTimestamp(),
+      text: newMsg,
+      name: user.displayName,
+      uid: user.uid,
+      createdAt: serverTimestamp(),
     });
     setNewMsg("");
   };
 
   return (
-    <div style={styles.container}>
+    <div style={{ ...styles.container, height: isMobile ? "100dvh" : "100vh" }}>
       <header style={styles.header}>
         <button onClick={goBack} style={styles.backBtn}>←</button>
         <div style={styles.roomInfo}>
@@ -42,7 +47,10 @@ function ChatRoom({ room, user, goBack }) {
       </div>
 
       <footer style={styles.footerContainer}>
-        <div style={styles.inputWrapper}>
+        <div style={{
+          ...styles.inputWrapper,
+          flexDirection: isMobile ? "column" : "row"
+        }}>
           <input
             value={newMsg}
             onChange={(e) => setNewMsg(e.target.value)}
@@ -50,7 +58,16 @@ function ChatRoom({ room, user, goBack }) {
             placeholder={`Message #${room}`}
             style={styles.input}
           />
-          <button onClick={sendMessage} style={styles.sendBtn}>Send</button>
+          <button
+            onClick={sendMessage}
+            style={{
+              ...styles.sendBtn,
+              width: isMobile ? "100%" : "auto",
+              marginTop: isMobile ? "8px" : "0"
+            }}
+          >
+            Send
+          </button>
         </div>
         <div style={styles.copyright}>
           © {new Date().getFullYear()} CHAT.JR • ALL RIGHTS RESERVED
@@ -61,7 +78,7 @@ function ChatRoom({ room, user, goBack }) {
 }
 
 const styles = {
-  container: { height: "100vh", display: "flex", flexDirection: "column", maxWidth: "900px", margin: "0 auto" },
+  container: { display: "flex", flexDirection: "column", maxWidth: "900px", margin: "0 auto" },
   header: { padding: "20px", display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.05)", backdropFilter: "blur(10px)" },
   backBtn: { background: "none", border: "none", color: "#94a3b8", fontSize: "24px", marginRight: "20px", cursor: "pointer" },
   roomInfo: { display: "flex", alignItems: "center", gap: "10px" },
