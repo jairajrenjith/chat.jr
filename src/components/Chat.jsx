@@ -28,18 +28,19 @@ function Chat({ user }) {
     } else {
       await setDoc(roomRef, { type: "public" });
     }
+
     setRoom(inputRoom);
   };
 
-  if (room) return <ChatRoom room={room} user={user} goBack={() => setRoom(null)} />;
+  if (room) {
+    return <ChatRoom room={room} user={user} goBack={() => setRoom(null)} />;
+  }
 
   return (
     <div style={styles.wrapper}>
       <div style={styles.panel}>
         <div style={styles.header}>
-          <div style={styles.userInfo}>
-            <div style={styles.welcome}>{user.displayName}</div>
-          </div>
+          <div style={styles.welcome}>Welcome back, {user.displayName}</div>
           <button onClick={handleLogout} style={styles.logout}>Sign Out</button>
         </div>
 
@@ -69,7 +70,6 @@ const styles = {
   panel: {
     width: "100%",
     maxWidth: "520px",
-    background: "var(--panel)",
     padding: "30px",
     borderRadius: "18px"
   },
@@ -78,44 +78,34 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: "30px",
-    flexWrap: "wrap",
-    gap: "10px"
-  },
-  userInfo: {
-    display: "flex",
-    alignItems: "center"
+    gap: "10px",
+    flexWrap: "wrap"
   },
   welcome: {
     fontSize: "16px",
-    fontWeight: "600"
+    fontWeight: "600",
+    wordBreak: "break-word"
   },
   joinSection: {
     display: "flex",
     gap: "10px",
-    flexWrap: "wrap"
+    width: "100%"
   },
   input: {
-    flex: "1 1 250px",
+    flex: 1,
+    minWidth: 0,
     padding: "12px",
-    borderRadius: "10px",
-    border: "1px solid var(--muted)",
-    background: "transparent",
-    color: "var(--text)"
+    borderRadius: "10px"
   },
   joinBtn: {
     padding: "12px 18px",
-    background: "var(--accent)",
-    border: "none",
     borderRadius: "10px",
-    color: "white",
     flexShrink: 0
   },
   logout: {
-    background: "transparent",
-    border: "1px solid var(--muted)",
     padding: "8px 14px",
     borderRadius: "8px",
-    color: "var(--muted)"
+    flexShrink: 0
   }
 };
 
