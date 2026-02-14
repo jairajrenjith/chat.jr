@@ -32,12 +32,21 @@ function ChatRoom({ room, user, goBack }) {
   };
 
   return (
-    <div style={{ ...styles.container, height: isMobile ? "100dvh" : "100vh" }}>
-      <header style={styles.header}>
+    <div style={styles.container}>
+      <header style={{
+        ...styles.header,
+        paddingTop: isMobile ? "28px" : "20px"
+      }}>
         <button onClick={goBack} style={styles.backBtn}>←</button>
         <div style={styles.roomInfo}>
           <div style={styles.statusDot} />
-          <h3 style={styles.roomName}>{room}</h3>
+          <h3 style={{
+            ...styles.roomName,
+            fontSize: isMobile ? "20px" : "18px",
+            fontWeight: isMobile ? "700" : "600"
+          }}>
+            {room}
+          </h3>
         </div>
       </header>
 
@@ -47,10 +56,7 @@ function ChatRoom({ room, user, goBack }) {
       </div>
 
       <footer style={styles.footerContainer}>
-        <div style={{
-          ...styles.inputWrapper,
-          flexDirection: isMobile ? "column" : "row"
-        }}>
+        <div style={styles.inputWrapper}>
           <input
             value={newMsg}
             onChange={(e) => setNewMsg(e.target.value)}
@@ -62,8 +68,8 @@ function ChatRoom({ room, user, goBack }) {
             onClick={sendMessage}
             style={{
               ...styles.sendBtn,
-              width: isMobile ? "100%" : "auto",
-              marginTop: isMobile ? "8px" : "0"
+              height: isMobile ? "56px" : undefined,
+              fontSize: isMobile ? "17px" : undefined
             }}
           >
             Send
@@ -78,12 +84,12 @@ function ChatRoom({ room, user, goBack }) {
 }
 
 const styles = {
-  container: { display: "flex", flexDirection: "column", maxWidth: "900px", margin: "0 auto" },
+  container: { height: "100vh", display: "flex", flexDirection: "column", maxWidth: "900px", margin: "0 auto" },
   header: { padding: "20px", display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.05)", backdropFilter: "blur(10px)" },
   backBtn: { background: "none", border: "none", color: "#94a3b8", fontSize: "24px", marginRight: "20px", cursor: "pointer" },
   roomInfo: { display: "flex", alignItems: "center", gap: "10px" },
   statusDot: { width: "8px", height: "8px", background: "#10b981", borderRadius: "50%" },
-  roomName: { margin: 0, fontSize: "18px", fontWeight: "600", color: "#fff" },
+  roomName: { margin: 0, color: "#fff" },
   chatArea: { flex: 1, overflowY: "auto", padding: "24px" },
   footerContainer: { padding: "24px", display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" },
   inputWrapper: { width: "100%", display: "flex", background: "#0f172a", padding: "6px", borderRadius: "18px", border: "1px solid #1e293b" },
