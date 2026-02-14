@@ -93,8 +93,6 @@ const styles = {
     width: "100%",
     maxWidth: "720px",
     height: "90vh",
-    background: "var(--panel)",
-    borderRadius: "18px",
     display: "flex",
     flexDirection: "column"
   },
@@ -102,11 +100,10 @@ const styles = {
     padding: "16px",
     display: "flex",
     alignItems: "center",
-    gap: "10px",
-    fontWeight: "500"
+    gap: "10px"
   },
   roomTitle: {
-    fontSize: "15px",
+    flex: 1,
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap"
@@ -120,28 +117,22 @@ const styles = {
     padding: "12px",
     display: "flex",
     gap: "10px",
-    flexWrap: "nowrap"
+    width: "100%"
   },
   input: {
     flex: 1,
+    minWidth: 0,
     padding: "12px",
-    borderRadius: "10px",
-    border: "1px solid var(--muted)",
-    background: "transparent",
-    color: "var(--text)"
+    borderRadius: "10px"
   },
   send: {
     padding: "12px 16px",
-    background: "var(--accent)",
-    border: "none",
     borderRadius: "10px",
-    color: "white",
     flexShrink: 0
   },
   back: {
     background: "transparent",
     border: "none",
-    color: "var(--text)",
     fontSize: "18px"
   }
 };
