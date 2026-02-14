@@ -74,7 +74,7 @@ function ChatRoom({ room, user, goBack }) {
 
 const styles = {
   container: {
-    height: "100dvh",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     maxWidth: "900px",
