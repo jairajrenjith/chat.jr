@@ -36,7 +36,7 @@ function Chat({ user }) {
   if (room) return <ChatRoom room={room} user={user} goBack={() => setRoom(null)} />;
 
   return (
-    <div style={{ ...styles.wrapper, height: isMobile ? "100dvh" : "100vh" }}>
+    <div style={styles.wrapper}>
       <div style={styles.panel}>
         <div style={styles.header}>
           <div style={styles.userInfo}>
@@ -51,10 +51,7 @@ function Chat({ user }) {
 
         <div style={styles.content}>
           <h2 style={styles.cta}>Join or Create a Room</h2>
-          <div style={{
-            ...styles.inputGroup,
-            flexDirection: isMobile ? "column" : "row"
-          }}>
+          <div style={styles.inputGroup}>
             <input
               placeholder="Enter Room (e.g. general)"
               value={inputRoom}
@@ -66,8 +63,8 @@ function Chat({ user }) {
               onClick={joinRoom}
               style={{
                 ...styles.joinBtn,
-                width: isMobile ? "100%" : "auto",
-                marginTop: isMobile ? "10px" : "0"
+                height: isMobile ? "60px" : undefined,
+                fontSize: isMobile ? "17px" : undefined
               }}
             >
               Enter
@@ -84,7 +81,7 @@ function Chat({ user }) {
 }
 
 const styles = {
-  wrapper: { display: "flex", justifyContent: "center", alignItems: "center", padding: "20px" },
+  wrapper: { height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", padding: "20px" },
   panel: {
     width: "100%",
     maxWidth: "540px",
