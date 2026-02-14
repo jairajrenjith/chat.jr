@@ -8,11 +8,14 @@ function ChatRoom({ room, user, goBack }) {
   const [newMsg, setNewMsg] = useState("");
   const bottomRef = useRef();
 
-  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
-
   useEffect(() => {
-    const q = query(collection(db, "rooms", room, "messages"), orderBy("createdAt"));
-    const unsub = onSnapshot(q, (snap) => setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
+    const q = query(
+      collection(db, "rooms", room, "messages"),
+      orderBy("createdAt")
+    );
+    const unsub = onSnapshot(q, (snap) =>
+      setMessages(snap.docs.map((d) => ({ id: d.id, ...d.data() })))
+    );
     return () => unsub();
   }, [room]);
 
@@ -32,36 +35,19 @@ function ChatRoom({ room, user, goBack }) {
   };
 
   return (
-    <div
-      style={{
-        ...styles.container,
-        height: isMobile ? "100dvh" : "100vh",
-        paddingTop: isMobile ? "env(safe-area-inset-top)" : 0
-      }}
-    >
-      <header
-        style={{
-          ...styles.header,
-          paddingTop: isMobile ? "28px" : "20px"
-        }}
-      >
+    <div style={styles.container}>
+      <header style={styles.header}>
         <button onClick={goBack} style={styles.backBtn}>←</button>
         <div style={styles.roomInfo}>
           <div style={styles.statusDot} />
-          <h3
-            style={{
-              ...styles.roomName,
-              fontSize: isMobile ? "20px" : "18px",
-              fontWeight: isMobile ? "700" : "600"
-            }}
-          >
-            {room}
-          </h3>
+          <h3 style={styles.roomName}>{room}</h3>
         </div>
       </header>
 
       <div style={styles.chatArea}>
-        {messages.map((m) => <Message key={m.id} msg={m} user={user} />)}
+        {messages.map((m) => (
+          <Message key={m.id} msg={m} user={user} />
+        ))}
         <div ref={bottomRef} />
       </div>
 
@@ -74,14 +60,7 @@ function ChatRoom({ room, user, goBack }) {
             placeholder={`Message #${room}`}
             style={styles.input}
           />
-          <button
-            onClick={sendMessage}
-            style={{
-              ...styles.sendBtn,
-              height: isMobile ? "56px" : undefined,
-              fontSize: isMobile ? "17px" : undefined
-            }}
-          >
+          <button onClick={sendMessage} style={styles.sendBtn}>
             Send
           </button>
         </div>
@@ -94,17 +73,95 @@ function ChatRoom({ room, user, goBack }) {
 }
 
 const styles = {
-  container: { display: "flex", flexDirection: "column", maxWidth: "900px", margin: "0 auto" },
-  header: { padding: "20px", display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.05)", backdropFilter: "blur(10px)" },
-  backBtn: { background: "none", border: "none", color: "#94a3b8", fontSize: "24px", marginRight: "20px", cursor: "pointer" },
-  roomInfo: { display: "flex", alignItems: "center", gap: "10px" },
-  statusDot: { width: "8px", height: "8px", background: "#10b981", borderRadius: "50%" },
-  roomName: { margin: 0, fontSize: "18px", fontWeight: "600", color: "#fff" },
-  chatArea: { flex: 1, overflowY: "auto", padding: "24px" },
-  footerContainer: { padding: "24px", display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" },
-  inputWrapper: { width: "100%", display: "flex", background: "#0f172a", padding: "6px", borderRadius: "18px", border: "1px solid #1e293b" },
-  input: { flex: 1, background: "transparent", border: "none", color: "white", padding: "12px 18px", fontSize: "15px" },
-  sendBtn: { background: "#3b82f6", color: "white", border: "none", padding: "10px 20px", borderRadius: "14px", fontWeight: "600", cursor: "pointer" },
+  container: {
+    height: "100dvh",
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: "900px",
+    margin: "0 auto"
+  },
+
+  header: {
+    flexShrink: 0,
+    padding: "20px",
+    display: "flex",
+    alignItems: "center",
+    borderBottom: "1px solid rgba(255,255,255,0.05)",
+    backdropFilter: "blur(10px)"
+  },
+
+  backBtn: {
+    background: "none",
+    border: "none",
+    color: "#94a3b8",
+    fontSize: "24px",
+    marginRight: "20px",
+    cursor: "pointer"
+  },
+
+  roomInfo: {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px"
+  },
+
+  statusDot: {
+    width: "8px",
+    height: "8px",
+    background: "#10b981",
+    borderRadius: "50%"
+  },
+
+  roomName: {
+    margin: 0,
+    fontSize: "18px",
+    fontWeight: "600",
+    color: "#fff"
+  },
+
+  chatArea: {
+    flex: 1,
+    overflowY: "auto",
+    padding: "24px"
+  },
+
+  footerContainer: {
+    flexShrink: 0,
+    padding: "24px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "20px"
+  },
+
+  inputWrapper: {
+    width: "100%",
+    display: "flex",
+    background: "#0f172a",
+    padding: "6px",
+    borderRadius: "18px",
+    border: "1px solid #1e293b"
+  },
+
+  input: {
+    flex: 1,
+    background: "transparent",
+    border: "none",
+    color: "white",
+    padding: "12px 18px",
+    fontSize: "15px"
+  },
+
+  sendBtn: {
+    background: "#3b82f6",
+    color: "white",
+    border: "none",
+    padding: "10px 20px",
+    borderRadius: "14px",
+    fontWeight: "600",
+    cursor: "pointer"
+  },
+
   copyright: {
     fontSize: "9px",
     color: "#475569",
