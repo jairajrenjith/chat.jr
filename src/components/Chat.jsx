@@ -8,6 +8,8 @@ function Chat({ user }) {
   const [room, setRoom] = useState(null);
   const [inputRoom, setInputRoom] = useState("");
 
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+
   const handleLogout = async () => {
     await signOut(auth);
     window.location.reload();
@@ -34,7 +36,7 @@ function Chat({ user }) {
   if (room) return <ChatRoom room={room} user={user} goBack={() => setRoom(null)} />;
 
   return (
-    <div style={styles.wrapper}>
+    <div style={{ ...styles.wrapper, height: isMobile ? "100dvh" : "100vh" }}>
       <div style={styles.panel}>
         <div style={styles.header}>
           <div style={styles.userInfo}>
@@ -49,7 +51,10 @@ function Chat({ user }) {
 
         <div style={styles.content}>
           <h2 style={styles.cta}>Join or Create a Room</h2>
-          <div style={styles.inputGroup}>
+          <div style={{
+            ...styles.inputGroup,
+            flexDirection: isMobile ? "column" : "row"
+          }}>
             <input
               placeholder="Enter Room (e.g. general)"
               value={inputRoom}
@@ -57,7 +62,16 @@ function Chat({ user }) {
               onKeyDown={(e) => e.key === "Enter" && joinRoom()}
               style={styles.input}
             />
-            <button onClick={joinRoom} style={styles.joinBtn}>Enter</button>
+            <button
+              onClick={joinRoom}
+              style={{
+                ...styles.joinBtn,
+                width: isMobile ? "100%" : "auto",
+                marginTop: isMobile ? "10px" : "0"
+              }}
+            >
+              Enter
+            </button>
           </div>
         </div>
 
@@ -70,7 +84,7 @@ function Chat({ user }) {
 }
 
 const styles = {
-  wrapper: { height: "100vh", display: "flex", justifyContent: "center", alignItems: "center", padding: "20px" },
+  wrapper: { display: "flex", justifyContent: "center", alignItems: "center", padding: "20px" },
   panel: {
     width: "100%",
     maxWidth: "540px",
